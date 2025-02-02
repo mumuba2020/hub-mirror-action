@@ -58,6 +58,7 @@ class HubMirror(object):
             clone_style=self.args.clone_style,
             src_account_type=self.args.src_account_type,
             dst_account_type=self.args.dst_account_type,
+            api_timeout=int(self.args.api_timeout),
         )
         src_type, src_account = self.args.src.split('/')
 
@@ -79,6 +80,10 @@ class HubMirror(object):
                         cache=self.args.cache_path,
                         timeout=self.args.timeout,
                         force_update=self.args.force_update,
+                        lfs=(
+                            self.args.lfs if hasattr(self.args, "lfs")
+                            else False
+                        )
                     )
                     mirror.download()
                     mirror.create()
